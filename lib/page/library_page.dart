@@ -39,28 +39,33 @@ class LibraryPage extends StatelessWidget {
                         height: 250,
                         child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, bookIndex) => SizedBox(
-                              width: 150,
-                              height: 200,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Stack(
-                                  children: [
-                                    Positioned.fill(child: CachedNetworkImage(imageUrl: list?[listIndex].books?[bookIndex].bookImage ?? '', fit: BoxFit.fill,)),
-                                    Positioned.fill(child: Container(
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                            colors: [Colors.black38, Colors.transparent],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter
-                                        )
-                                      ),
-                                    )),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: FavouriteButtonView(book: list![listIndex].books![bookIndex], bookmarkID: '${list[listIndex].listName}${list[listIndex].books?[bookIndex].title}', ),
-                                    )
-                                  ],
+                            itemBuilder: (context, bookIndex) => GestureDetector(
+                              onLongPress: (){
+                                context.read<LibraryPageBloc>().showMenu(context, list![listIndex].books![bookIndex]);
+                              },
+                              child: SizedBox(
+                                width: 150,
+                                height: 200,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Stack(
+                                    children: [
+                                      Positioned.fill(child: CachedNetworkImage(imageUrl: list?[listIndex].books?[bookIndex].bookImage ?? '', fit: BoxFit.fill,)),
+                                      Positioned.fill(child: Container(
+                                        decoration: const BoxDecoration(
+                                            gradient: LinearGradient(
+                                                colors: [Colors.black38, Colors.transparent],
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter
+                                            )
+                                        ),
+                                      )),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: FavouriteButtonView(book: list![listIndex].books![bookIndex], bookmarkID: '${list[listIndex].listName}${list[listIndex].books?[bookIndex].title}', ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

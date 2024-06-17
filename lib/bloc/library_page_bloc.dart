@@ -4,6 +4,7 @@ import '../data/apply/apply.dart';
 import '../data/apply/apply_impl.dart';
 import '../data/vos/book_vo/book_vo.dart';
 import '../data/vos/list_vo/list_vo.dart';
+import '../widgets/menu_widget.dart';
 
 class LibraryPageBloc extends ChangeNotifier{
   final Apply _apply = ApplyImpl();
@@ -38,6 +39,13 @@ class LibraryPageBloc extends ChangeNotifier{
       await _apply.removeFromBookmark(bookmarkID);
     }
     await _apply.getLists('2023-03-21');
+  }
+
+  void showMenu(BuildContext context, BookVO bookVO){
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => MenuWidget(bookVO: bookVO)
+    );
   }
 
   @override
